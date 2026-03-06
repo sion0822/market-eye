@@ -1,0 +1,23 @@
+name: Candle-Logic-Monitor
+on:
+  schedule:
+    - cron: '5 7-16 * * 1-5'
+  workflow_dispatch:
+jobs:
+  run-logic:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+      - name: Install Libs
+        run: |
+          pip install --upgrade pip
+          pip install yfinance pandas
+          pip install pandas-ta --no-cache-dir
+      - name: Run Python
+        env:
+          GMAIL_USER: ${{ secrets.GMAIL_USER }}
+          GMAIL_PASS: ${{ secrets.GMAIL_PASS }}
+        run: python candle_logic.py
