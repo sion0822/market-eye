@@ -1,10 +1,10 @@
-name: Candle-Logic-Monitor
+name: Daily-Market-Eye
 on:
   schedule:
-    - cron: '5 7-16 * * 1-5'
+    - cron: '0 3,15 * * *'
   workflow_dispatch:
 jobs:
-  run-logic:
+  run-monitor:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -14,9 +14,10 @@ jobs:
       - name: Install Libs
         run: |
           pip install --upgrade pip
-          pip install yfinance pandas pandas-ta
+          pip install yfinance pandas
+          pip install pandas_ta
       - name: Run Python
         env:
           GMAIL_USER: ${{ secrets.GMAIL_USER }}
           GMAIL_PASS: ${{ secrets.GMAIL_PASS }}
-        run: python candle_logic.py
+        run: python main.py
