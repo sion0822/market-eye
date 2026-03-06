@@ -1,0 +1,20 @@
+name: Daily-Market-Eye
+on:
+  schedule:
+    - cron: '0 3,15 * * *'
+  workflow_dispatch:
+jobs:
+  run-monitor:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+      - name: Install Libs
+        run: pip install yfinance pandas pandas_ta
+      - name: Run Python
+        env:
+          GMAIL_USER: ${{ secrets.GMAIL_USER }}
+          GMAIL_PASS: ${{ secrets.GMAIL_PASS }}
+        run: python market_eye.py
