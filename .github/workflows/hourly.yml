@@ -12,7 +12,10 @@ jobs:
         with:
           python-version: '3.9'
       - name: Install Libs
-        run: pip install yfinance pandas pandas-ta
+       run: |
+          pip install --upgrade pip
+          pip install yfinance pandas
+          pip install pandas-ta --no-cache-dir
       - name: Run Python
         env:
           GMAIL_USER: ${{ secrets.GMAIL_USER }}
