@@ -14,8 +14,7 @@ jobs:
       - name: Install Libs
         run: |
           pip install --upgrade pip
-          pip install yfinance pandas
-          pip install pandas_ta --no-cache-dir
+          pip install yfinance pandas pandas-ta
       - name: Run Python
         env:
           GMAIL_USER: ${{ secrets.GMAIL_USER }}
